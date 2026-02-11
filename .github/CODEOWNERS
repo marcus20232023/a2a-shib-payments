@@ -1,0 +1,18 @@
+# Code Owners - Auto-request reviews
+
+# Default owner for everything
+* @marcus20232023
+
+# Security-critical files require owner review
+auth.js @marcus20232023
+rate-limiter.js @marcus20232023
+audit-logger.js @marcus20232023
+
+# Core payment logic
+index.js @marcus20232023
+escrow.js @marcus20232023
+payment-negotiation.js @marcus20232023
+reputation.js @marcus20232023
+
+# GitHub workflows
+.github/workflows/* @marcus20232023

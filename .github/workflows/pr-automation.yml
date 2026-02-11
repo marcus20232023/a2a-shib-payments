@@ -1,0 +1,151 @@
+name: PR Automation
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  welcome-and-label:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+    
+    steps:
+    - name: 🎉 Welcome First-Time Contributors
+      uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        pr-message: |
+          👋 **Welcome and thank you for your first contribution to the A2A SHIB Payment System!**
+          
+          We're excited to have you in the community! 🎉
+          
+          **What happens next:**
+          1. A maintainer will review your PR soon (usually within 24-48 hours)
+          2. We may request changes or ask questions
+          3. Once approved, your contribution will be merged!
+          
+          **Helpful resources:**
+          - [Contributing Guidelines](https://github.com/marcus20232023/a2a-shib-payments/blob/master/CONTRIBUTING.md)
+          - [Code of Conduct](https://github.com/marcus20232023/a2a-shib-payments/blob/master/CODE_OF_CONDUCT.md)
+          
+          Thanks for helping make agent-to-agent payments better! 🦪💰
+
+    - name: 🏷️ Auto-Label PR
+      uses: actions/labeler@v5
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        configuration-path: .github/labeler.yml
+        sync-labels: true
+
+  analyze-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    
+    steps:
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+    
+    - name: 🔍 Analyze PR Changes
+      id: analyze
+      run: |
+        # Get changed files
+        FILES=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files[].path')
+        
+        # Categorize changes
+        HAS_DOCS=false
+        HAS_CODE=false
+        HAS_TESTS=false
+        HAS_SECURITY=false
+        
+        while IFS= read -r file; do
+          if [[ "$file" =~ \.md$ ]]; then
+            HAS_DOCS=true
+          fi
+          if [[ "$file" =~ \.js$ ]] && [[ ! "$file" =~ test- ]]; then
+            HAS_CODE=true
+          fi
+          if [[ "$file" =~ test-.*\.js$ ]]; then
+            HAS_TESTS=true
+          fi
+          if [[ "$file" =~ (auth|security|audit) ]]; then
+            HAS_SECURITY=true
+          fi
+        done <<< "$FILES"
+        
+        echo "has_docs=$HAS_DOCS" >> $GITHUB_OUTPUT
+        echo "has_code=$HAS_CODE" >> $GITHUB_OUTPUT
+        echo "has_tests=$HAS_TESTS" >> $GITHUB_OUTPUT
+        echo "has_security=$HAS_SECURITY" >> $GITHUB_OUTPUT
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: 💬 Add Analysis Comment
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const hasCode = '${{ steps.analyze.outputs.has_code }}' === 'true';
+          const hasTests = '${{ steps.analyze.outputs.has_tests }}' === 'true';
+          const hasSecurity = '${{ steps.analyze.outputs.has_security }}' === 'true';
+          
+          let comment = '## 🤖 PR Analysis\n\n';
+          
+          if (hasCode && !hasTests) {
+            comment += '⚠️ **Code changes detected without tests.** Consider adding tests to `test-*.js` files.\n\n';
+          }
+          
+          if (hasSecurity) {
+            comment += '🔐 **Security-related changes detected.** Extra review required.\n\n';
+          }
+          
+          comment += '**Checklist:**\n';
+          comment += `- [${hasTests ? 'x' : ' '}] Tests included\n`;
+          comment += '- [ ] Documentation updated\n';
+          comment += '- [ ] No breaking changes\n';
+          comment += '- [ ] Follows code style\n\n';
+          comment += '*Thank you for your contribution!*';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+  notify-maintainer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    
+    steps:
+    - name: 📢 Notify Maintainer
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const pr = context.payload.pull_request;
+          
+          // Build notification message
+          let message = `🔔 **New PR on a2a-shib-payments**\n\n`;
+          message += `**PR #${pr.number}:** ${pr.title}\n`;
+          message += `**Author:** @${pr.user.login}\n`;
+          message += `**URL:** ${pr.html_url}\n\n`;
+          message += `**Files changed:** ${pr.changed_files}\n`;
+          message += `**Additions:** +${pr.additions} / **Deletions:** -${pr.deletions}\n\n`;
+          message += `**Suggested Actions:**\n`;
+          message += `1. Review the changes\n`;
+          message += `2. Run tests locally if needed\n`;
+          message += `3. Provide feedback or approve\n`;
+          
+          console.log(message);
+          core.setOutput('notification', message);
+    
+    - name: 📱 Send Telegram Notification
+      run: |
+        # This will be picked up by the GitHub monitor
+        echo "PR notification triggered"

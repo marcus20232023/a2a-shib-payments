@@ -1,0 +1,55 @@
+# Auto-labeling configuration for PRs
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file: 
+      - '**/*.md'
+      - 'docs/**/*'
+
+bug:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/test-*.js'
+    - all-globs-to-all-files:
+      - '!**/*.md'
+
+enhancement:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'escrow.js'
+      - 'payment-negotiation.js'
+      - 'reputation.js'
+    - all-globs-to-all-files:
+      - '!**/test-*.js'
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'package.json'
+      - 'package-lock.json'
+
+security:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'auth.js'
+      - 'rate-limiter.js'
+      - 'audit-logger.js'
+      - '**/security/**/*'
+
+tests:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'test-*.js'
+      - '**/__tests__/**'
+
+github-actions:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/workflows/**'
+      - '.github/**/*.yml'
+
+good first issue:
+  - head-branch:
+    - 'typo-*'
+    - 'docs-*'
+    - 'fix-typo-*'
