@@ -79,7 +79,7 @@ No framework lock-in!
 ```
 Ready to build?
 
-⭐ Star the repo: https://github.com/marcus20232023/a2a-shib-payments
+⭐ Star the repo: https://github.com/marcus20232023/a2a-payments
 📖 Read the docs: Full deployment guide included
 🚀 Deploy in 5 minutes
 
@@ -145,7 +145,7 @@ Just 3 dependencies: `@a2a-js/sdk`, `ethers.js`, `express`
 
 ## Try it
 
-GitHub: https://github.com/marcus20232023/a2a-shib-payments
+GitHub: https://github.com/marcus20232023/a2a-payments
 Docs: Full deployment guide + API reference included
 License: MIT (free for commercial use)
 
@@ -217,7 +217,7 @@ All with automatic escrow, instant settlement, and reputation tracking.
 
 ## Try It
 
-GitHub: https://github.com/marcus20232023/a2a-shib-payments  
+GitHub: https://github.com/marcus20232023/a2a-payments  
 Docs: Deployment guide + API reference included  
 Deploy time: ~5 minutes  
 
@@ -254,7 +254,7 @@ Happy to answer anything about the tech, economics, or agent commerce in general
 
 I built and open-sourced a complete payment system for AI agents to transact autonomously.
 
-GitHub: https://github.com/marcus20232023/a2a-shib-payments
+GitHub: https://github.com/marcus20232023/a2a-payments
 
 ## Motivation
 
@@ -358,7 +358,7 @@ Feedback/PRs welcome!
 
 ## Links
 
-GitHub: https://github.com/marcus20232023/a2a-shib-payments  
+GitHub: https://github.com/marcus20232023/a2a-payments  
 A2A Protocol: https://a2a-protocol.org  
 ```
 
@@ -393,7 +393,7 @@ Built on the A2A protocol standard (v0.3.0) with just 3 dependencies: @a2a-js/sd
 
 MIT licensed. Free for commercial use.
 
-GitHub: https://github.com/marcus20232023/a2a-shib-payments
+GitHub: https://github.com/marcus20232023/a2a-payments
 
 What payment challenges are you solving for AI agents? Let's discuss in the comments.
 
@@ -406,7 +406,7 @@ What payment challenges are you solving for AI agents? Let's discuss in the comm
 
 **Title:** Show HN: A2A payment system for AI agents – 9,416x cheaper than traditional escrow
 
-**URL:** https://github.com/marcus20232023/a2a-shib-payments
+**URL:** https://github.com/marcus20232023/a2a-payments
 
 **Comment (optional):**
 ```
@@ -447,7 +447,7 @@ Smart contracts on Polygon
 - Works with LangChain, Bedrock, OpenClaw, AutoGen
 - Node.js + Express + ethers.js
 
-📦 **Open source:** https://github.com/marcus20232023/a2a-shib-payments
+📦 **Open source:** https://github.com/marcus20232023/a2a-payments
 MIT license, production-ready
 
 Use cases: Data marketplace, AI training payments, IoT data trading, content commissions
@@ -488,7 +488,7 @@ Complete agent-to-agent payment system with:
 
 Framework-agnostic: Works with LangChain, AWS Bedrock, OpenClaw, AutoGen.
 
-🔗 GitHub: https://github.com/marcus20232023/a2a-shib-payments
+🔗 GitHub: https://github.com/marcus20232023/a2a-payments
 📖 Docs: Full deployment guide included
 📄 License: MIT (free for commercial use)
 

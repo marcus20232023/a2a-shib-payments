@@ -170,11 +170,11 @@ Last updated: 2026-02-11
 
 ## 🔗 Quick Links
 
-- **Repo:** https://github.com/marcus20232023/a2a-shib-payments
-- **Release:** https://github.com/marcus20232023/a2a-shib-payments/releases/tag/v2.0.0
+- **Repo:** https://github.com/marcus20232023/a2a-payments
+- **Release:** https://github.com/marcus20232023/a2a-payments/releases/tag/v2.0.0
 - **PR #23:** https://github.com/ttumiel/Awesome-Ethereum/pull/23
-- **Issues:** https://github.com/marcus20232023/a2a-shib-payments/issues
-- **Discussions:** https://github.com/marcus20232023/a2a-shib-payments/discussions
+- **Issues:** https://github.com/marcus20232023/a2a-payments/issues
+- **Discussions:** https://github.com/marcus20232023/a2a-payments/discussions
 
 ---
 
@@ -273,18 +273,18 @@ Next high-impact: Hacker News (no karma requirement), LinkedIn, Discord communit
 ### ✅ Published to ClawHub!
 
 **Skill Directory:** ClawHub (OpenClaw skills)
-**Slug:** a2a-shib-payments
+**Slug:** a2a-payments
 **Version:** 2.0.0
 **ID:** k978a508b230tz56nkq32rkrvd80yxfx
 **URL:** https://clawhub.com
 
 **Installation command:**
 ```bash
-clawhub install a2a-shib-payments
+clawhub install a2a-payments
 ```
 
 **Distribution Channels Now:**
-1. ✅ GitHub (marcus20232023/a2a-shib-payments)
+1. ✅ GitHub (marcus20232023/a2a-payments)
 2. ✅ ClawHub (OpenClaw skill directory)
 3. ⏳ Awesome-Ethereum (PR #23 pending)
 4. ✅ Social: X/Twitter, Bluesky, r/CryptoCurrency

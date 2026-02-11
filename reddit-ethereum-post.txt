@@ -49,7 +49,7 @@ Just 3 dependencies: `@a2a-js/sdk`, `ethers.js`, `express`
 
 ## Try it
 
-GitHub: https://github.com/marcus20232023/a2a-shib-payments
+GitHub: https://github.com/marcus20232023/a2a-payments
 Docs: Full deployment guide + API reference included
 License: MIT (free for commercial use)
 

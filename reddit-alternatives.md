@@ -85,7 +85,7 @@ r/ethereum requires minimum karma to post (anti-spam measure).
 
 ## Files Ready
 
-All posts in `/home/marc/projects/a2a-shib-payments/`:
+All posts in `/home/marc/projects/a2a-payments/`:
 - `reddit-ethereum-post.txt` - Original (save for later)
 - Adapt for other subreddits as needed
 - `hackernews-post.txt` - Ready to use

@@ -129,7 +129,7 @@ npm install
 ## 📚 Resources Created
 
 ### Documentation
-- `/home/marc/clawd/docs/a2a-shib-payments-guide.md` (10KB complete guide)
+- `/home/marc/clawd/docs/a2a-payments-guide.md` (10KB complete guide)
 - `/home/marc/clawd/skills/shib-payments/SKILL.md` (Quick start)
 - `/home/marc/clawd/skills/shib-payments/README.md` (Full POC docs)
 

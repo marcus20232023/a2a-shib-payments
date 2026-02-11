@@ -267,7 +267,7 @@ The agent can be used as a standalone OpenClaw skill:
 ```bash
 # Install in OpenClaw skills directory
 cd ~/clawd/skills
-git clone https://github.com/marcus20232023/a2a-shib-payments.git shib-payments
+git clone https://github.com/marcus20232023/a2a-payments.git shib-payments
 cd shib-payments
 npm install
 
@@ -428,7 +428,7 @@ services:
     image: node:18
     working_dir: /app
     volumes:
-      - ./a2a-shib-payments:/app
+      - ./a2a-payments:/app
     environment:
       - WALLET_PRIVATE_KEY=${WALLET_PRIVATE_KEY}
       - RPC_URL=https://polygon-rpc.com
@@ -545,7 +545,7 @@ Usage:
 
 1. Install dependencies:
 
-   cd /home/marc/projects/a2a-shib-payments
+   cd /home/marc/projects/a2a-payments
    npm install
 
 2. The test is pre-configured with an Amoy USDC token address: `0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582`. You can verify or change this in `test/test-usdc.js`.

@@ -41,7 +41,7 @@
 
 ### 1. Twitter/X 🐦
 **Priority:** 🔴 HIGHEST  
-**File:** `/home/marc/projects/a2a-shib-payments/twitter-thread.txt`
+**File:** `/home/marc/projects/a2a-payments/twitter-thread.txt`
 
 **Instructions:**
 1. Open Twitter
@@ -58,7 +58,7 @@
 
 ### 2. Reddit 📝
 **Priority:** 🔴 HIGH  
-**File:** `/home/marc/projects/a2a-shib-payments/reddit-ethereum-post.txt`
+**File:** `/home/marc/projects/a2a-payments/reddit-ethereum-post.txt`
 
 **r/ethereum:**
 1. Go to https://reddit.com/r/ethereum
@@ -81,11 +81,11 @@
 
 ### 3. Hacker News 🔶
 **Priority:** 🟡 MEDIUM  
-**File:** `/home/marc/projects/a2a-shib-payments/hackernews-post.txt`
+**File:** `/home/marc/projects/a2a-payments/hackernews-post.txt`
 
 **Instructions:**
 1. Go to https://news.ycombinator.com/submit
-2. URL: https://github.com/marcus20232023/a2a-shib-payments
+2. URL: https://github.com/marcus20232023/a2a-payments
 3. Title: Copy from file
 4. Submit
 5. Optionally: Add comment from file
@@ -97,7 +97,7 @@
 
 ### 4. LinkedIn 💼
 **Priority:** 🟢 MEDIUM-LOW  
-**File:** `/home/marc/projects/a2a-shib-payments/SOCIAL.md` (LinkedIn section)
+**File:** `/home/marc/projects/a2a-payments/SOCIAL.md` (LinkedIn section)
 
 **Instructions:**
 1. Open LinkedIn
@@ -113,7 +113,7 @@
 
 ### 5. Discord Communities 💬
 **Priority:** 🟢 LOW  
-**File:** `/home/marc/projects/a2a-shib-payments/SOCIAL.md` (Discord section)
+**File:** `/home/marc/projects/a2a-payments/SOCIAL.md` (Discord section)
 
 **Target communities:**
 - AI/ML Discord servers
@@ -146,7 +146,7 @@
 Hey! I just launched an open-source project for AI agent payments. 
 Would you mind giving it a ⭐ on GitHub to help with visibility?
 
-https://github.com/marcus20232023/a2a-shib-payments
+https://github.com/marcus20232023/a2a-payments
 
 Thanks!
 ```
@@ -217,11 +217,11 @@ Thanks!
 
 ## 📁 File Locations
 
-All files are in: `/home/marc/projects/a2a-shib-payments/`
+All files are in: `/home/marc/projects/a2a-payments/`
 
 **Quick reference:**
 ```bash
-cd /home/marc/projects/a2a-shib-payments
+cd /home/marc/projects/a2a-payments
 
 # Social media content
 cat twitter-thread.txt
@@ -239,11 +239,11 @@ cat PROMOTION-TRACKER.md
 
 ## 🔗 Essential Links
 
-- **GitHub Repo:** https://github.com/marcus20232023/a2a-shib-payments
-- **v2.0.0 Release:** https://github.com/marcus20232023/a2a-shib-payments/releases/tag/v2.0.0
+- **GitHub Repo:** https://github.com/marcus20232023/a2a-payments
+- **v2.0.0 Release:** https://github.com/marcus20232023/a2a-payments/releases/tag/v2.0.0
 - **PR #23:** https://github.com/ttumiel/Awesome-Ethereum/pull/23
-- **Issues:** https://github.com/marcus20232023/a2a-shib-payments/issues
-- **Discussions:** https://github.com/marcus20232023/a2a-shib-payments/discussions
+- **Issues:** https://github.com/marcus20232023/a2a-payments/issues
+- **Discussions:** https://github.com/marcus20232023/a2a-payments/discussions
 
 ---
 

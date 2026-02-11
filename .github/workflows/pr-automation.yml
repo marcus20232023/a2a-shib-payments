@@ -29,8 +29,8 @@ jobs:
           3. Once approved, your contribution will be merged!
           
           **Helpful resources:**
-          - [Contributing Guidelines](https://github.com/marcus20232023/a2a-shib-payments/blob/master/CONTRIBUTING.md)
-          - [Code of Conduct](https://github.com/marcus20232023/a2a-shib-payments/blob/master/CODE_OF_CONDUCT.md)
+          - [Contributing Guidelines](https://github.com/marcus20232023/a2a-payments/blob/master/CONTRIBUTING.md)
+          - [Code of Conduct](https://github.com/marcus20232023/a2a-payments/blob/master/CODE_OF_CONDUCT.md)
           
           Thanks for helping make agent-to-agent payments better! 🦪💰
 
@@ -131,7 +131,7 @@ jobs:
           const pr = context.payload.pull_request;
           
           // Build notification message
-          let message = `🔔 **New PR on a2a-shib-payments**\n\n`;
+          let message = `🔔 **New PR on a2a-payments**\n\n`;
           message += `**PR #${pr.number}:** ${pr.title}\n`;
           message += `**Author:** @${pr.user.login}\n`;
           message += `**URL:** ${pr.html_url}\n\n`;

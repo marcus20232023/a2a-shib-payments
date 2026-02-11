@@ -13,8 +13,8 @@ Target awesome lists for submission to increase discoverability.
 ```markdown
 ### A2A SHIB Payment System
 Framework-agnostic payment infrastructure for AI agents on Polygon. Includes trustless escrow, price negotiation, and reputation system. 9,416x cheaper than traditional escrow (~$0.003 gas).
-- [GitHub](https://github.com/marcus20232023/a2a-shib-payments)
-- [Documentation](https://github.com/marcus20232023/a2a-shib-payments#readme)
+- [GitHub](https://github.com/marcus20232023/a2a-payments)
+- [Documentation](https://github.com/marcus20232023/a2a-payments#readme)
 ```
 
 ---
@@ -24,7 +24,7 @@ Framework-agnostic payment infrastructure for AI agents on Polygon. Includes tru
 **Category:** DApps or Ecosystem  
 **Submission:**
 ```markdown
-- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-shib-payments) - Complete agent-to-agent payment system with escrow, negotiation, and reputation on Polygon. Framework-agnostic (LangChain, AWS Bedrock, OpenClaw compatible).
+- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-payments) - Complete agent-to-agent payment system with escrow, negotiation, and reputation on Polygon. Framework-agnostic (LangChain, AWS Bedrock, OpenClaw compatible).
 ```
 
 ---
@@ -37,7 +37,7 @@ Framework-agnostic payment infrastructure for AI agents on Polygon. Includes tru
 ## A2A SHIB Payment System
 Agent-to-agent payment infrastructure on Polygon with trustless escrow, automated price negotiation, and reputation scoring. Works with LangChain, AWS Bedrock, AutoGen. ~$0.003 per transaction.
 
-https://github.com/marcus20232023/a2a-shib-payments
+https://github.com/marcus20232023/a2a-payments
 ```
 
 ---
@@ -55,7 +55,7 @@ https://github.com/marcus20232023/a2a-shib-payments
 **Submission:**
 ```markdown
 ### Agent-to-Agent Payments
-- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-shib-payments) - Payment infrastructure for AI agents. Escrow, negotiation, reputation. Polygon network. Framework-agnostic.
+- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-payments) - Payment infrastructure for AI agents. Escrow, negotiation, reputation. Polygon network. Framework-agnostic.
 ```
 
 ---
@@ -65,7 +65,7 @@ https://github.com/marcus20232023/a2a-shib-payments
 **Category:** Applications, DeFi  
 **Submission:**
 ```markdown
-- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-shib-payments) - Agent-to-agent payment system leveraging Polygon's low gas costs (~$0.003). Includes escrow, negotiation, reputation. Production-ready.
+- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-payments) - Agent-to-agent payment system leveraging Polygon's low gas costs (~$0.003). Includes escrow, negotiation, reputation. Production-ready.
 ```
 
 ---
@@ -76,7 +76,7 @@ https://github.com/marcus20232023/a2a-shib-payments
 **Submission:**
 ```markdown
 ### AI Agent Commerce
-- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-shib-payments) - First production-ready payment system for autonomous AI agents. Polygon-based. 9,416x cheaper than traditional escrow.
+- [A2A SHIB Payment System](https://github.com/marcus20232023/a2a-payments) - First production-ready payment system for autonomous AI agents. Polygon-based. 9,416x cheaper than traditional escrow.
 ```
 
 ---
@@ -140,7 +140,7 @@ Framework-agnostic payment infrastructure for autonomous AI agents. Built on A2A
 - Production security (auth, rate limiting, audit logs)
 
 ### Links
-- GitHub: https://github.com/marcus20232023/a2a-shib-payments
+- GitHub: https://github.com/marcus20232023/a2a-payments
 - Documentation: Complete deployment guide + API reference
 - License: MIT
 

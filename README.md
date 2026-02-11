@@ -25,8 +25,8 @@ Escrow · Negotiation · Reputation
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![A2A Protocol](https://img.shields.io/badge/A2A-v0.3.0-green.svg)](https://a2a-protocol.org)
 [![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
-[![GitHub stars](https://img.shields.io/github/stars/marcus20232023/a2a-shib-payments?style=social)](https://github.com/marcus20232023/a2a-shib-payments)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/marcus20232023/a2a-shib-payments/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/marcus20232023/a2a-payments?style=social)](https://github.com/marcus20232023/a2a-payments)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/marcus20232023/a2a-payments/pulls)
 
 ---
 
@@ -104,8 +104,8 @@ A **framework-agnostic A2A payment system** that enables agents to:
 
 ```bash
 # Clone repository
-git clone https://github.com/marcus20232023/a2a-shib-payments.git
-cd a2a-shib-payments
+git clone https://github.com/marcus20232023/a2a-payments.git
+cd a2a-payments
 
 # Install dependencies
 npm install
@@ -399,7 +399,7 @@ Try the demo agent at: `http://localhost:8003` (after installation)
 - [ ] Insurance pool for escrows
 - [ ] AI-powered fraud detection
 
-**Vote on features:** [Submit requests in Issues](https://github.com/marcus20232023/a2a-shib-payments/issues)
+**Vote on features:** [Submit requests in Issues](https://github.com/marcus20232023/a2a-payments/issues)
 
 ---
 
@@ -455,9 +455,9 @@ Help spread the word about agent-to-agent payments!
 **Social media templates ready:** [SOCIAL.md](SOCIAL.md) has copy-paste posts for Twitter, Reddit, LinkedIn, Hacker News, and Discord.
 
 **Quick share links:**
-- [Tweet this](https://twitter.com/intent/tweet?text=🚀%20Just%20found%20a%20production-ready%20payment%20system%20for%20AI%20agents!%20SHIB%20on%20Polygon,%20trustless%20escrow,%20auto%20negotiation.%209,416x%20cheaper%20than%20traditional%20escrow.%20Framework-agnostic%20(LangChain,%20Bedrock,%20OpenClaw).%20MIT%20licensed.%20https://github.com/marcus20232023/a2a-shib-payments%20%23AI%20%23Web3%20%23Agents)
-- [Share on LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/marcus20232023/a2a-shib-payments)
-- [Post on Reddit](https://reddit.com/submit?url=https://github.com/marcus20232023/a2a-shib-payments&title=A2A%20SHIB%20Payment%20System%20-%20Payment%20Infrastructure%20for%20AI%20Agents)
+- [Tweet this](https://twitter.com/intent/tweet?text=🚀%20Just%20found%20a%20production-ready%20payment%20system%20for%20AI%20agents!%20SHIB%20on%20Polygon,%20trustless%20escrow,%20auto%20negotiation.%209,416x%20cheaper%20than%20traditional%20escrow.%20Framework-agnostic%20(LangChain,%20Bedrock,%20OpenClaw).%20MIT%20licensed.%20https://github.com/marcus20232023/a2a-payments%20%23AI%20%23Web3%20%23Agents)
+- [Share on LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/marcus20232023/a2a-payments)
+- [Post on Reddit](https://reddit.com/submit?url=https://github.com/marcus20232023/a2a-payments&title=A2A%20SHIB%20Payment%20System%20-%20Payment%20Infrastructure%20for%20AI%20Agents)
 
 Found this useful? Give it a ⭐ on GitHub!
 
@@ -508,16 +508,16 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 📞 Support & Community
 
-- **🐛 Bug Reports:** [GitHub Issues](https://github.com/marcus20232023/a2a-shib-payments/issues)
-- **💬 Discussions:** [GitHub Discussions](https://github.com/marcus20232023/a2a-shib-payments/discussions)
+- **🐛 Bug Reports:** [GitHub Issues](https://github.com/marcus20232023/a2a-payments/issues)
+- **💬 Discussions:** [GitHub Discussions](https://github.com/marcus20232023/a2a-payments/discussions)
 - **📖 Documentation:** See `/docs` folder in repo
 - **🔔 Updates:** Watch this repo for new releases
 - **⭐ Feature Requests:** Submit via Issues with `enhancement` label
 
 **Need help?**
 1. Check the [FAQ](#-faq) section above
-2. Search [existing issues](https://github.com/marcus20232023/a2a-shib-payments/issues)
-3. Ask in [Discussions](https://github.com/marcus20232023/a2a-shib-payments/discussions)
+2. Search [existing issues](https://github.com/marcus20232023/a2a-payments/issues)
+3. Ask in [Discussions](https://github.com/marcus20232023/a2a-payments/discussions)
 4. Submit a new issue with detailed info
 
 ---
@@ -610,6 +610,6 @@ curl -X POST http://localhost:8003/a2a/jsonrpc \
 
 ### ⭐ Star this repo to support the project! ⭐
 
-[Report Bug](https://github.com/marcus20232023/a2a-shib-payments/issues) · [Request Feature](https://github.com/marcus20232023/a2a-shib-payments/issues) · [Documentation](https://github.com/marcus20232023/a2a-shib-payments/tree/master)
+[Report Bug](https://github.com/marcus20232023/a2a-payments/issues) · [Request Feature](https://github.com/marcus20232023/a2a-payments/issues) · [Documentation](https://github.com/marcus20232023/a2a-payments/tree/master)
 
 </div>

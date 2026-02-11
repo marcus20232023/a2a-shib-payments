@@ -7,7 +7,7 @@ Thank you for your interest in contributing! This document provides guidelines f
 ## 🎯 Ways to Contribute
 
 ### 1. 🐛 Report Bugs
-- Check [existing issues](https://github.com/marcus20232023/a2a-shib-payments/issues) first
+- Check [existing issues](https://github.com/marcus20232023/a2a-payments/issues) first
 - Use the bug report template
 - Include:
   - Steps to reproduce
@@ -45,11 +45,11 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 ```bash
 # Fork the repo on GitHub, then:
-git clone https://github.com/YOUR_USERNAME/a2a-shib-payments.git
-cd a2a-shib-payments
+git clone https://github.com/YOUR_USERNAME/a2a-payments.git
+cd a2a-payments
 
 # Add upstream remote
-git remote add upstream https://github.com/marcus20232023/a2a-shib-payments.git
+git remote add upstream https://github.com/marcus20232023/a2a-payments.git
 ```
 
 ### Install Dependencies
@@ -403,8 +403,8 @@ We'll respond within 48 hours and work with you to fix it.
 
 ### Getting Help
 
-- **Questions:** Open a [Discussion](https://github.com/marcus20232023/a2a-shib-payments/discussions)
-- **Bugs:** Open an [Issue](https://github.com/marcus20232023/a2a-shib-payments/issues)
+- **Questions:** Open a [Discussion](https://github.com/marcus20232023/a2a-payments/discussions)
+- **Bugs:** Open an [Issue](https://github.com/marcus20232023/a2a-payments/issues)
 - **Chat:** (Add Discord/Slack if you create one)
 
 ---
@@ -467,7 +467,7 @@ See [README.md](README.md#-roadmap) for full roadmap.
 
 ## ✅ Ready to Contribute?
 
-1. **Pick an issue** from [good first issues](https://github.com/marcus20232023/a2a-shib-payments/labels/good%20first%20issue)
+1. **Pick an issue** from [good first issues](https://github.com/marcus20232023/a2a-payments/labels/good%20first%20issue)
 2. **Comment** on the issue to claim it
 3. **Fork, code, test, PR**
 4. **Celebrate** your contribution! 🎉

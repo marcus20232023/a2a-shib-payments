@@ -5,12 +5,12 @@ The A2A SHIB Payment System is published on ClawHub, the OpenClaw skills directo
 ## Installation
 
 ```bash
-clawhub install a2a-shib-payments
+clawhub install a2a-payments
 ```
 
 ## Published Details
 
-- **Slug:** a2a-shib-payments
+- **Slug:** a2a-payments
 - **Version:** 2.0.0
 - **ID:** k978a508b230tz56nkq32rkrvd80yxfx
 - **Tags:** payments, blockchain, polygon, escrow, a2a
@@ -28,16 +28,16 @@ clawhub search "escrow"
 ### Install
 ```bash
 # Latest version
-clawhub install a2a-shib-payments
+clawhub install a2a-payments
 
 # Specific version
-clawhub install a2a-shib-payments --version 2.0.0
+clawhub install a2a-payments --version 2.0.0
 ```
 
 ### Update
 ```bash
 # Update to latest
-clawhub update a2a-shib-payments
+clawhub update a2a-payments
 
 # Update all skills
 clawhub update --all
@@ -59,8 +59,8 @@ This skill can be used with any OpenClaw agent. Once installed:
 ## Links
 
 - **ClawHub:** https://clawhub.com
-- **Skill on ClawHub:** https://clawhub.com/skills/a2a-shib-payments
-- **GitHub:** https://github.com/marcus20232023/a2a-shib-payments
+- **Skill on ClawHub:** https://clawhub.com/skills/a2a-payments
+- **GitHub:** https://github.com/marcus20232023/a2a-payments
 - **Documentation:** See README.md and SKILL.md
 
 ## Publishing Updates
@@ -75,7 +75,7 @@ git commit -am "Update: new feature"
 npm version patch  # or minor, major
 
 # Publish to ClawHub
-clawhub publish . --slug a2a-shib-payments \
+clawhub publish . --slug a2a-payments \
   --name "A2A SHIB Payment System" \
   --version X.Y.Z \
   --changelog "What changed"

@@ -2,8 +2,8 @@
 # GitHub Repository Monitor
 # Checks for PRs, issues, stars, and other activity
 
-REPO="marcus20232023/a2a-shib-payments"
-STATE_FILE="/home/marc/projects/a2a-shib-payments/.github-monitor-state.json"
+REPO="marcus20232023/a2a-payments"
+STATE_FILE="/home/marc/projects/a2a-payments/.github-monitor-state.json"
 
 # Initialize state file if doesn't exist
 if [ ! -f "$STATE_FILE" ]; then

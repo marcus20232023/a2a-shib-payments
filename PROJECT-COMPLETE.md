@@ -2,7 +2,7 @@
 
 **Date:** 2026-02-11  
 **Status:** ✅ Production-Ready & Launch-Ready  
-**Repository:** https://github.com/marcus20232023/a2a-shib-payments
+**Repository:** https://github.com/marcus20232023/a2a-payments
 
 ---
 
@@ -177,23 +177,23 @@
 ## 🔗 Essential Links
 
 **Repository:**
-- Main: https://github.com/marcus20232023/a2a-shib-payments
-- Release v2.0.0: https://github.com/marcus20232023/a2a-shib-payments/releases/tag/v2.0.0
-- Issues: https://github.com/marcus20232023/a2a-shib-payments/issues
-- Discussions: https://github.com/marcus20232023/a2a-shib-payments/discussions
+- Main: https://github.com/marcus20232023/a2a-payments
+- Release v2.0.0: https://github.com/marcus20232023/a2a-payments/releases/tag/v2.0.0
+- Issues: https://github.com/marcus20232023/a2a-payments/issues
+- Discussions: https://github.com/marcus20232023/a2a-payments/discussions
 
 **Submissions:**
 - PR #23 (Awesome-Ethereum): https://github.com/ttumiel/Awesome-Ethereum/pull/23
 
 **Social Templates:**
-- All templates: `/home/marc/projects/a2a-shib-payments/SOCIAL.md`
-- Twitter: `/home/marc/projects/a2a-shib-payments/twitter-thread.txt`
-- Reddit: `/home/marc/projects/a2a-shib-payments/reddit-ethereum-post.txt`
-- HN: `/home/marc/projects/a2a-shib-payments/hackernews-post.txt`
+- All templates: `/home/marc/projects/a2a-payments/SOCIAL.md`
+- Twitter: `/home/marc/projects/a2a-payments/twitter-thread.txt`
+- Reddit: `/home/marc/projects/a2a-payments/reddit-ethereum-post.txt`
+- HN: `/home/marc/projects/a2a-payments/hackernews-post.txt`
 
 **Guides:**
-- Launch checklist: `/home/marc/projects/a2a-shib-payments/LAUNCH-CHECKLIST.md`
-- Promotion tracker: `/home/marc/projects/a2a-shib-payments/PROMOTION-TRACKER.md`
+- Launch checklist: `/home/marc/projects/a2a-payments/LAUNCH-CHECKLIST.md`
+- Promotion tracker: `/home/marc/projects/a2a-payments/PROMOTION-TRACKER.md`
 
 ---
 
@@ -214,7 +214,7 @@ Everything needed to go from "code on laptop" to "widely-adopted open source pro
 ## 💡 Next Steps for Marc
 
 ### Immediate (Next Hour)
-1. Open `/home/marc/projects/a2a-shib-payments/twitter-thread.txt`
+1. Open `/home/marc/projects/a2a-payments/twitter-thread.txt`
 2. Copy and post Tweet 1/6 on Twitter
 3. Reply to your tweet with Tweets 2-6
 4. ✅ Check "Posted Twitter thread" in LAUNCH-CHECKLIST.md

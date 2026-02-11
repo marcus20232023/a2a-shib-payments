@@ -1,5 +1,5 @@
 ---
-name: a2a-shib-payments
+name: a2a-payments
 description: Framework-agnostic agent-to-agent payment system with SHIB on Polygon. Provides trustless escrow, price negotiation, and reputation system. 9,416x cheaper than traditional escrow (~$0.003 gas).
 metadata:
   {
@@ -75,12 +75,12 @@ This skill enables AI agents to:
 
 ```bash
 # Via ClawHub
-clawhub install a2a-shib-payments
+clawhub install a2a-payments
 
 # Or manual clone
 cd ~/clawd/skills
-git clone https://github.com/marcus20232023/a2a-shib-payments.git
-cd a2a-shib-payments
+git clone https://github.com/marcus20232023/a2a-payments.git
+cd a2a-payments
 npm install
 ```
 
@@ -282,10 +282,10 @@ For a $100 transaction: **99.99% savings** (9,416x cheaper)
 
 ## Links
 
-- **GitHub:** https://github.com/marcus20232023/a2a-shib-payments
-- **Release:** https://github.com/marcus20232023/a2a-shib-payments/releases/tag/v2.0.0
+- **GitHub:** https://github.com/marcus20232023/a2a-payments
+- **Release:** https://github.com/marcus20232023/a2a-payments/releases/tag/v2.0.0
 - **A2A Protocol:** https://a2a-protocol.org
-- **Issues:** https://github.com/marcus20232023/a2a-shib-payments/issues
+- **Issues:** https://github.com/marcus20232023/a2a-payments/issues
 
 ## License
 

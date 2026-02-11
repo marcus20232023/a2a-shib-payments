@@ -70,7 +70,7 @@ No framework lock-in!
 TWEET 6/6:
 Ready to build?
 
-⭐ Star the repo: https://github.com/marcus20232023/a2a-shib-payments
+⭐ Star the repo: https://github.com/marcus20232023/a2a-payments
 📖 Read the docs: Full deployment guide included
 🚀 Deploy in 5 minutes
 

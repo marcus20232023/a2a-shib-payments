@@ -13,8 +13,8 @@ Your question here.
 What are you trying to accomplish?
 
 ## 📚 What I've Tried
-- [ ] Read the [README.md](https://github.com/marcus20232023/a2a-shib-payments/blob/master/README.md)
-- [ ] Checked [INTEGRATION-EXAMPLES.md](https://github.com/marcus20232023/a2a-shib-payments/blob/master/INTEGRATION-EXAMPLES.md)
+- [ ] Read the [README.md](https://github.com/marcus20232023/a2a-payments/blob/master/README.md)
+- [ ] Checked [INTEGRATION-EXAMPLES.md](https://github.com/marcus20232023/a2a-payments/blob/master/INTEGRATION-EXAMPLES.md)
 - [ ] Searched existing issues/discussions
 - [ ] Tried the following: (describe)
 
