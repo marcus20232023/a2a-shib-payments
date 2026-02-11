@@ -44,7 +44,7 @@ class PaymentNegotiationSystem {
    * @param {object} params.terms - Service terms
    * @param {number} params.validForMinutes - Quote validity period
    */
-  createQuote({ providerId, clientId, service, price, terms = {}, validForMinutes = 60 }) {
+  createQuote({ providerId, clientId, service, price, token = 'SHIB', terms = {}, validForMinutes = 60 }) {
     const quoteId = 'quote_' + crypto.randomBytes(16).toString('hex');
     
     const now = Date.now();
@@ -54,6 +54,7 @@ class PaymentNegotiationSystem {
       clientId,
       service,
       price,
+      token,
       terms: {
         deliveryTimeMinutes: terms.deliveryTimeMinutes || null,
         qualityGuarantee: terms.qualityGuarantee || null,
@@ -102,6 +103,7 @@ class PaymentNegotiationSystem {
         payer: clientId,
         payee: quote.providerId,
         amount: quote.agreedPrice,
+        token: quote.token,
         purpose: `Payment for: ${quote.service}`,
         conditions: {
           requiresApproval: true,
@@ -187,6 +189,7 @@ class PaymentNegotiationSystem {
         payer: quote.clientId,
         payee: providerId,
         amount: quote.agreedPrice,
+        token: quote.token,
         purpose: `Payment for: ${quote.service}`,
         conditions: {
           requiresApproval: true,
