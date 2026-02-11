@@ -78,6 +78,11 @@ class EscrowSystem {
       metadata: {}
     };
 
+    // Attach token-aware metadata for adapters/gas/approval flows
+    escrow.metadata.tokenAdapter = token === 'USDC' ? 'erc20-usdc' : 'native';
+    // For ERC20 tokens we mark that an approval/allowance flow is expected
+    escrow.metadata.requiresApproval = token === 'USDC';
+
     this.escrows[escrowId] = escrow;
     this.saveState();
 
