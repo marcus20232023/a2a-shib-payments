@@ -1,8 +1,24 @@
-# A2A SHIB Payment Agent 🦪💰
+<div align="center">
+
+# 🦪💰 A2A SHIB Payment Agent
 
 **The first production-ready agent-to-agent payment system for the new agent economy**
 
-Complete trustless crypto commerce infrastructure on Polygon network. Escrow, negotiation, reputation—all in one package.
+Complete trustless crypto commerce infrastructure on Polygon network.  
+Escrow · Negotiation · Reputation
+
+```
+┌─────────────────────────────────────┐
+│   AI Agent Commerce Infrastructure   │
+├─────────────────────────────────────┤
+│  💰 Payments    🔒 Escrow           │
+│  💬 Negotiation ⭐ Reputation       │
+│  🔐 Security    🌐 A2A Protocol     │
+└─────────────────────────────────────┘
+    ~$0.003/tx  |  9,416x cheaper
+```
+
+</div>
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![A2A Protocol](https://img.shields.io/badge/A2A-v0.3.0-green.svg)](https://a2a-protocol.org)
@@ -136,10 +152,16 @@ node test-escrow-negotiation.js
 
 ## 📚 Documentation
 
+### Core Guides
 - **[DEPLOYMENT.md](DEPLOYMENT.md)** - Complete deployment guide (5 options)
 - **[ESCROW-NEGOTIATION-GUIDE.md](ESCROW-NEGOTIATION-GUIDE.md)** - Escrow & negotiation API reference
 - **[PRODUCTION-HARDENING.md](PRODUCTION-HARDENING.md)** - Security infrastructure guide
 - **[FINAL-SUMMARY.md](FINAL-SUMMARY.md)** - Complete system overview
+
+### Integration & Promotion
+- **[INTEGRATION-EXAMPLES.md](INTEGRATION-EXAMPLES.md)** - LangChain, AWS Bedrock, OpenClaw, AutoGen examples
+- **[SOCIAL.md](SOCIAL.md)** - Ready-to-use social media posts (Twitter, Reddit, LinkedIn, HN)
+- **[AWESOME-LISTS.md](AWESOME-LISTS.md)** - Submission guide for awesome lists
 
 ---
 
@@ -331,6 +353,8 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for complete guide.
 
 ## 🎬 Demo
 
+> **Want to integrate this into your agent?** See [INTEGRATION-EXAMPLES.md](INTEGRATION-EXAMPLES.md) for LangChain, AWS Bedrock, OpenClaw, and AutoGen examples.
+
 ### Live Agent
 Try the demo agent at: `http://localhost:8003` (after installation)
 
@@ -419,6 +443,21 @@ For testing: 1,000-10,000 SHIB (~$0.25-$2.50). For production: depends on your t
 
 ### Is there a hosted version?
 Not yet. This is self-hosted infrastructure. Cloud hosting/SaaS version is on the roadmap (v2.2+). For now, deploy to a VPS ($6/month) or run locally.
+
+---
+
+## 📢 Share This Project
+
+Help spread the word about agent-to-agent payments!
+
+**Social media templates ready:** [SOCIAL.md](SOCIAL.md) has copy-paste posts for Twitter, Reddit, LinkedIn, Hacker News, and Discord.
+
+**Quick share links:**
+- [Tweet this](https://twitter.com/intent/tweet?text=🚀%20Just%20found%20a%20production-ready%20payment%20system%20for%20AI%20agents!%20SHIB%20on%20Polygon,%20trustless%20escrow,%20auto%20negotiation.%209,416x%20cheaper%20than%20traditional%20escrow.%20Framework-agnostic%20(LangChain,%20Bedrock,%20OpenClaw).%20MIT%20licensed.%20https://github.com/marcus20232023/a2a-shib-payments%20%23AI%20%23Web3%20%23Agents)
+- [Share on LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/marcus20232023/a2a-shib-payments)
+- [Post on Reddit](https://reddit.com/submit?url=https://github.com/marcus20232023/a2a-shib-payments&title=A2A%20SHIB%20Payment%20System%20-%20Payment%20Infrastructure%20for%20AI%20Agents)
+
+Found this useful? Give it a ⭐ on GitHub!
 
 ---
 
