@@ -15,7 +15,8 @@
   "keywords": [
     "a2a",
     "agent-to-agent",
-    "openclaw",
+    "a2a-protocol",
+    "framework-agnostic",
     "shib",
     "polygon",
     "escrow",
@@ -24,7 +25,11 @@
     "reputation",
     "negotiation",
     "blockchain",
-    "trustless"
+    "trustless",
+    "langchain",
+    "bedrock",
+    "openclaw",
+    "autogen"
   ],
   "author": "ChillyGeekBot",
   "license": "MIT",

@@ -14,7 +14,7 @@ Complete trustless crypto commerce infrastructure on Polygon network. Escrow, ne
 
 ## 🦪 What is this?
 
-An **OpenClaw skill** that enables agents to:
+A **framework-agnostic A2A payment system** that enables agents to:
 - Send/receive SHIB payments on Polygon (~$0.003 gas)
 - Create trustless escrow contracts
 - Negotiate prices automatically
@@ -69,7 +69,8 @@ An **OpenClaw skill** that enables agents to:
 ### 🌐 A2A Protocol Integration
 - Agent discovery via registry
 - Standardized messaging (JSON-RPC, REST)
-- Compatible with LangChain agents, AWS Bedrock agents
+- **Compatible with:** LangChain, AWS Bedrock, OpenClaw, AutoGen, any A2A-compliant system
+- Framework-agnostic (pure Node.js + Express)
 - Agent card with capabilities
 
 ---
@@ -394,8 +395,15 @@ Yes, with caveats:
 
 See [PRODUCTION-HARDENING.md](PRODUCTION-HARDENING.md) for complete checklist.
 
-### Can I use this with AWS Bedrock Agents?
-Yes! The A2A protocol is compatible with LangChain agents, AWS Bedrock agents, and any system that supports JSON-RPC or REST messaging.
+### Can I use this with [Framework X]?
+Yes! This system is **framework-agnostic**. It implements the A2A protocol standard, which means it works with:
+- **LangChain** - Direct integration via A2A tools
+- **AWS Bedrock Agents** - Via A2A agent invocation
+- **OpenClaw** - As a skill or standalone agent
+- **AutoGen** - Via A2A messaging
+- **Custom systems** - Any system that supports JSON-RPC or REST
+
+Zero framework lock-in. Pure standards-based approach.
 
 ### What if the agent goes offline during an escrow?
 Escrows are stored on-chain (in memory, but can be persisted to DB). Time-locks ensure funds are auto-refunded if delivery doesn't happen within the timeout period. Even if your agent crashes, the blockchain guarantees the escrow logic.
@@ -441,11 +449,19 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 🙏 Acknowledgments
 
-Built with:
-- A2A Protocol ([@a2a-js/sdk](https://www.npmjs.com/package/@a2a-js/sdk))
-- Ethers.js for blockchain interaction
-- Express.js for HTTP server
-- OpenClaw framework
+**Dependencies:**
+- **[@a2a-js/sdk](https://www.npmjs.com/package/@a2a-js/sdk)** - A2A Protocol v0.3.0
+- **[ethers.js](https://docs.ethers.org/)** - Blockchain interaction
+- **[Express.js](https://expressjs.com/)** - HTTP server
+
+**Framework Compatibility:**
+- ✅ LangChain
+- ✅ AWS Bedrock Agents
+- ✅ OpenClaw
+- ✅ AutoGen
+- ✅ Any A2A-compatible system
+
+*Developed with OpenClaw assistant*
 
 ---
 
@@ -529,7 +545,7 @@ curl -X POST http://localhost:8003/a2a/jsonrpc \
 ## 👨‍💻 Built By
 
 **Marc Smith** ([@marcus20232023](https://github.com/marcus20232023))  
-Built with [OpenClaw](https://github.com/openclaw/openclaw) framework
+*Developed using [OpenClaw](https://github.com/openclaw/openclaw) development environment*
 
 **Development Stats:**
 - 📅 Development Time: ~21 hours
