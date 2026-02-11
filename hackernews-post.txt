@@ -2,7 +2,7 @@ TITLE:
 Show HN: A2A payment system for AI agents – 9,416x cheaper than traditional escrow
 
 URL:
-https://github.com/marcus20232023/a2a-shib-payments
+https://github.com/marcus20232023/a2a-payments
 
 COMMENT (optional):
 Built this to solve a real problem: AI agents need infrastructure for commerce.

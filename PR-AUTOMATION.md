@@ -1,6 +1,6 @@
 # PR Automation Guide
 
-Complete automation for handling Pull Requests on a2a-shib-payments.
+Complete automation for handling Pull Requests on a2a-payments.
 
 ---
 
@@ -116,7 +116,7 @@ What happens next:
 🎉 +1 new PR(s)! Total: 1
   PR #5: "Add USDC token support" by @contributor
   📊 Changes: 3 files, +127/-45
-  🔗 https://github.com/marcus20232023/a2a-shib-payments/pull/5
+  🔗 https://github.com/marcus20232023/a2a-payments/pull/5
   
   ✅ Suggested Actions:
   1. Review the code changes
@@ -240,7 +240,7 @@ Edit `.github/CODEOWNERS`:
 
 **Manual check:**
 ```bash
-cd /home/marc/projects/a2a-shib-payments
+cd /home/marc/projects/a2a-payments
 ./monitor-github.sh
 ```
 
