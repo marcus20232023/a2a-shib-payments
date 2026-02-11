@@ -1,10 +1,10 @@
-const { ethers } = require('ethers');
+const ethers = require('ethers');
 const ERC20Adapter = require('../adapters/erc20-usdc');
 
 async function main(){
   // Uses Polygon Mumbai public RPC for quick test (read-only)
-  const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com');
-  const usdcAddress = '0x0000000000000000000000000000000000000000'; // replace with test USDC on Mumbai
+  const provider = new ethers.JsonRpcProvider('https://rpc.ankr.com/polygon_mumbai');
+  const usdcAddress = '0xe6b8a5cf854791412c1f6efc7caf629f5df1c747'; // Mumbai USDC token address (Polygonscan)
   const adapter = new ERC20Adapter(provider, usdcAddress);
   try{
     const symbol = await adapter.getSymbol();
