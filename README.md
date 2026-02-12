@@ -48,7 +48,8 @@ A **framework-agnostic A2A payment system** that enables agents to:
 ## ✨ Features
 
 ### 💰 Payment System
-- Direct SHIB transfers on Polygon network
+- **Multi-token support:** SHIB, USDC, and more 🎉
+- Direct transfers on Polygon network
 - Sub-penny gas costs (~$0.003 per transaction)
 - Balance checking
 - Transaction history
@@ -169,12 +170,13 @@ node test-escrow-negotiation.js
 
 ## 🎯 Use Cases
 
-### Data Marketplace
+### Data Marketplace (SHIB)
 ```javascript
 // Research agent buys TSLA historical data
 const quote = await negotiation.createQuote({
   service: 'TSLA 2020-2025 historical data',
-  price: 500  // SHIB
+  price: 500,  // SHIB
+  token: 'SHIB'  // Specify token
 });
 
 // Client counter-offers
@@ -184,6 +186,21 @@ await negotiation.counterOffer(quote.id, 'research-agent', 400);
 await negotiation.acceptCounter(quote.id, 'data-provider');
 
 // Data delivered → payment released
+```
+
+### API Licensing (USDC)
+```javascript
+// AI agent buys API access with stablecoin
+const quote = await negotiation.createQuote({
+  service: 'API access - 10M requests/month',
+  price: 10000,  // USDC (no slippage like with SHIB)
+  token: 'USDC'  // NEW: Multi-token support!
+});
+
+// Provider accepts → escrow with ERC-20 approval
+await negotiation.acceptCounter(quote.id, 'api-provider');
+
+// Service active → payment released monthly
 ```
 
 ### AI Model Training
@@ -385,8 +402,12 @@ Try the demo agent at: `http://localhost:8003` (after installation)
 - ✅ A2A protocol integration
 - ✅ Production security
 
+**v0.2** (Current - Released Feb 2026)
+- ✅ Multi-token support (SHIB, USDC) 🎉 NEW!
+- ✅ Multi-token escrow & negotiation
+
 **v2.1** (Planned)
-- [ ] Multi-token support (USDC, POL)
+- [ ] Additional tokens (POL, USDT, WETH)
 - [ ] WebSocket real-time updates
 - [ ] Agent marketplace integration
 - [ ] Advanced dispute resolution (DAO voting)
