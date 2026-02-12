@@ -459,6 +459,387 @@ networks:
 
 ---
 
+## 💰 GitHub Tipping Integration
+
+The GitHub Tipping system allows agents and users to tip on GitHub repositories directly from code, using A2A escrow for secure payment settlement.
+
+### Feature Highlights
+
+- **Tip via API:** Create tips on any GitHub repository
+- **Token Support:** SHIB or USDC
+- **Escrow-backed:** Secure payment with conditions and settlement
+- **Auto-funding:** Optional automatic escrow creation and funding
+- **Statistics:** Real-time repo and tipper analytics
+- **Webhook Integration:** Automated tip processing via webhooks
+
+### Basic JavaScript/TypeScript Example
+
+```typescript
+import fetch from 'node-fetch';
+
+// Create a GitHub tip
+async function tipGitHubRepo() {
+  const response = await fetch('http://localhost:8003/a2a/github-tip', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      githubRepo: 'ethereum/go-ethereum',
+      tipper: 'agent-123',
+      recipient: 'vitalik-buterin',
+      amount: 1000,
+      token: 'SHIB',
+      message: 'Great work on consensus improvements!',
+      autoEscrow: true,
+      autoFund: false  // Manual funding after this
+    })
+  });
+
+  const result = await response.json();
+  console.log('Tip created:', result.tip.id);
+  console.log('Escrow:', result.escrow.escrowId);
+  
+  return result.tip.id;
+}
+
+// Tip with commit reference
+async function tipForCommit() {
+  const response = await fetch('http://localhost:8003/a2a/github-tip', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      githubRepo: 'uniswap/v3-core',
+      tipper: '0x1234567890123456789012345678901234567890',
+      recipient: 'hayden.eth',
+      amount: 500,
+      token: 'USDC',
+      message: 'Tipping for the V3 architecture improvements',
+      commitRef: 'abc1234567890def1234567890def1234567890',
+      autoEscrow: true,
+      autoFund: true  // Automatic payment
+    })
+  });
+
+  return await response.json();
+}
+
+// Fund an existing tip
+async function fundTip(tipId: string, txHash: string) {
+  const response = await fetch(
+    `http://localhost:8003/a2a/github-tip/${tipId}/fund`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ txHash })
+    }
+  );
+
+  return await response.json();
+}
+
+// Lock escrow (ready for release)
+async function lockTip(tipId: string) {
+  const response = await fetch(
+    `http://localhost:8003/a2a/github-tip/${tipId}/lock`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' } }
+  );
+
+  return await response.json();
+}
+
+// Release funds to recipient
+async function releaseTip(tipId: string, txHash: string, blockNumber: number) {
+  const response = await fetch(
+    `http://localhost:8003/a2a/github-tip/${tipId}/release`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        txHash,
+        blockNumber,
+        gasUsed: 50000
+      })
+    }
+  );
+
+  return await response.json();
+}
+
+// List tips for a repository
+async function getRepoStats(owner: string, repo: string) {
+  const response = await fetch(
+    `http://localhost:8003/a2a/github-tips/repo/${owner}/${repo}`,
+    { method: 'GET' }
+  );
+
+  const data = await response.json();
+  console.log(`Repo: ${owner}/${repo}`);
+  console.log(`Total tips: ${data.stats.totalTips}`);
+  console.log(`Total amount: ${data.stats.totalAmount} ${data.stats.byToken}`);
+  
+  return data;
+}
+
+// Get tipper statistics
+async function getTipperStats(tipper: string) {
+  const response = await fetch(
+    `http://localhost:8003/a2a/github-tips/tipper/${tipper}`,
+    { method: 'GET' }
+  );
+
+  return await response.json();
+}
+
+// Global statistics
+async function getGlobalStats() {
+  const response = await fetch(
+    'http://localhost:8003/a2a/github-tips/stats',
+    { method: 'GET' }
+  );
+
+  return await response.json();
+}
+```
+
+### Python Example
+
+```python
+import requests
+import json
+
+# Base URL
+BASE_URL = 'http://localhost:8003'
+
+def create_github_tip(
+    github_repo: str,
+    tipper: str,
+    recipient: str,
+    amount: float,
+    token: str = 'SHIB',
+    message: str = None,
+    auto_escrow: bool = True,
+    auto_fund: bool = False
+):
+    """Create a GitHub tip with optional escrow"""
+    response = requests.post(
+        f'{BASE_URL}/a2a/github-tip',
+        json={
+            'githubRepo': github_repo,
+            'tipper': tipper,
+            'recipient': recipient,
+            'amount': amount,
+            'token': token,
+            'message': message,
+            'autoEscrow': auto_escrow,
+            'autoFund': auto_fund
+        }
+    )
+    response.raise_for_status()
+    return response.json()
+
+def list_repo_tips(
+    github_repo: str,
+    limit: int = 100,
+    min_amount: float = None,
+    token: str = None,
+    state: str = None
+):
+    """List tips for a repository with filters"""
+    params = {
+        'githubRepo': github_repo,
+        'limit': limit
+    }
+    if min_amount:
+        params['minAmount'] = min_amount
+    if token:
+        params['token'] = token
+    if state:
+        params['state'] = state
+    
+    response = requests.get(
+        f'{BASE_URL}/a2a/github-tips',
+        params=params
+    )
+    response.raise_for_status()
+    return response.json()
+
+def get_repo_stats(owner: str, repo: str):
+    """Get statistics for a GitHub repository"""
+    response = requests.get(
+        f'{BASE_URL}/a2a/github-tips/repo/{owner}/{repo}'
+    )
+    response.raise_for_status()
+    return response.json()
+
+def get_tipper_stats(tipper: str):
+    """Get statistics for a tipper"""
+    response = requests.get(
+        f'{BASE_URL}/a2a/github-tips/tipper/{tipper}'
+    )
+    response.raise_for_status()
+    return response.json()
+
+# Example usage
+if __name__ == '__main__':
+    # Tip an Ethereum repository maintainer
+    result = create_github_tip(
+        github_repo='ethereum/go-ethereum',
+        tipper='agent-alice',
+        recipient='vitalik.eth',
+        amount=1000,
+        token='SHIB',
+        message='Thanks for the latest consensus update!',
+        auto_escrow=True
+    )
+    
+    print(f"Tip created: {result['tip']['id']}")
+    if 'escrow' in result:
+        print(f"Escrow: {result['escrow']['escrowId']}")
+    
+    # Check repository stats
+    stats = get_repo_stats('ethereum', 'go-ethereum')
+    print(f"\nRepository: {stats['stats']['githubRepo']}")
+    print(f"Total tips: {stats['stats']['totalTips']}")
+    print(f"Total amount: {stats['stats']['totalAmount']}")
+```
+
+### Full Workflow Example
+
+```javascript
+// Complete workflow: Create → Escrow → Fund → Lock → Release
+
+async function completeTippingWorkflow() {
+  // 1. Create tip
+  const createResp = await fetch('http://localhost:8003/a2a/github-tip', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      githubRepo: 'ethereum/go-ethereum',
+      tipper: '0x1234567890123456789012345678901234567890',
+      recipient: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+      amount: 100,
+      token: 'SHIB',
+      message: 'Funding consensus research',
+      autoEscrow: true,
+      autoFund: false  // We'll fund manually
+    })
+  });
+
+  const { tip, escrow } = await createResp.json();
+  console.log('✓ Tip created:', tip.id);
+  console.log('✓ Escrow created:', escrow.escrowId);
+
+  // 2. Process payment (your payment handler)
+  const paymentTx = await processPaymentOnBlockchain(
+    tip.tipper,
+    tip.recipient,
+    tip.amount,
+    tip.token
+  );
+  console.log('✓ Payment processed:', paymentTx.hash);
+
+  // 3. Fund the escrow
+  const fundResp = await fetch(
+    `http://localhost:8003/a2a/github-tip/${tip.id}/fund`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ txHash: paymentTx.hash })
+    }
+  );
+  const fundedTip = await fundResp.json();
+  console.log('✓ Escrow funded');
+
+  // 4. Lock the escrow
+  const lockResp = await fetch(
+    `http://localhost:8003/a2a/github-tip/${tip.id}/lock`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' } }
+  );
+  console.log('✓ Escrow locked');
+
+  // 5. Release to recipient (after settlement conditions met)
+  const releaseResp = await fetch(
+    `http://localhost:8003/a2a/github-tip/${tip.id}/release`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        txHash: paymentTx.hash,
+        blockNumber: paymentTx.blockNumber
+      })
+    }
+  );
+  const releasedTip = await releaseResp.json();
+  console.log('✓ Funds released to recipient');
+
+  return releasedTip;
+}
+```
+
+### Integration with LangChain Agent
+
+```typescript
+import { DynamicStructuredTool } from "@langchain/core/tools";
+import { z } from "zod";
+
+// GitHub Tipping Tool for LangChain
+const githubTippingTool = new DynamicStructuredTool({
+  name: "github_tipping",
+  description: "Create and manage GitHub repository tips with escrow",
+  schema: z.object({
+    action: z.enum(["create", "list", "stats"]).describe("Action to perform"),
+    githubRepo: z.string().optional().describe("GitHub repo (owner/repo)"),
+    tipper: z.string().optional().describe("Tipper agent ID or address"),
+    recipient: z.string().optional().describe("Recipient username or address"),
+    amount: z.number().optional().describe("Tip amount"),
+    token: z.enum(["SHIB", "USDC"]).optional().describe("Token type"),
+    message: z.string().optional().describe("Tip message")
+  }),
+  func: async (input) => {
+    const baseUrl = 'http://localhost:8003';
+
+    if (input.action === 'create') {
+      const response = await fetch(`${baseUrl}/a2a/github-tip`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          githubRepo: input.githubRepo,
+          tipper: input.tipper,
+          recipient: input.recipient,
+          amount: input.amount,
+          token: input.token || 'SHIB',
+          message: input.message,
+          autoEscrow: true
+        })
+      });
+      const data = await response.json();
+      return `Tip created: ${data.tip.id} with escrow ${data.escrow?.escrowId || 'pending'}`;
+    }
+
+    if (input.action === 'list') {
+      const params = new URLSearchParams({
+        githubRepo: input.githubRepo || '',
+        limit: '10'
+      });
+      const response = await fetch(`${baseUrl}/a2a/github-tips?${params}`);
+      const data = await response.json();
+      return `Found ${data.count} tips: ${JSON.stringify(data.tips.slice(0, 3))}`;
+    }
+
+    if (input.action === 'stats') {
+      const response = await fetch(`${baseUrl}/a2a/github-tips/stats`);
+      const data = await response.json();
+      return `Global stats: ${data.stats.totalTips} tips, ${data.stats.totalAmount} total amount`;
+    }
+
+    return 'Unknown action';
+  }
+});
+
+export { githubTippingTool };
+```
+
+---
+
 ## 🔒 Production Best Practices
 
 ### 1. Authentication

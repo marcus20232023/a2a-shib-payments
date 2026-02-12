@@ -6,10 +6,11 @@
   "scripts": {
     "start": "node a2a-agent-full.js",
     "start:basic": "node a2a-agent-v2.js",
-    "test": "npm run test:security && npm run test:escrow && npm run test:reputation",
+    "test": "npm run test:security && npm run test:escrow && npm run test:reputation && npm run test:github-tipping",
     "test:security": "node test-security.js",
     "test:escrow": "node test-escrow-negotiation.js",
     "test:reputation": "node test-reputation.js",
+    "test:github-tipping": "node test/test-github-tipping.js",
     "deploy": "./deploy-local.sh"
   },
   "keywords": [
