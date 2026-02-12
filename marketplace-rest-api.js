@@ -1339,6 +1339,142 @@ app.post('/api/ws/token', (req, res) => {
 // ERROR HANDLING
 // ============================================================
 
+// ============================================================
+// JSON-RPC ENDPOINT (A2A Protocol)
+// ============================================================
+
+// Agents DB file for persistence
+const AGENTS_DB_PATH = path.join(__dirname, 'agents-db.json');
+
+function loadAgentsDB() {
+  if (fs.existsSync(AGENTS_DB_PATH)) {
+    return JSON.parse(fs.readFileSync(AGENTS_DB_PATH, 'utf8'));
+  }
+  return {};
+}
+
+function saveAgentsDB(db) {
+  fs.writeFileSync(AGENTS_DB_PATH, JSON.stringify(db, null, 2));
+}
+
+// Merge persisted agents into in-memory agentsDB on startup
+const persistedAgents = loadAgentsDB();
+Object.assign(agentsDB, persistedAgents);
+
+app.post('/a2a/jsonrpc', (req, res) => {
+  const { jsonrpc, id, method, params } = req.body;
+
+  if (jsonrpc !== '2.0') {
+    return res.json({ jsonrpc: '2.0', id, error: { code: -32600, message: 'Invalid JSON-RPC version' } });
+  }
+
+  try {
+    switch (method) {
+      case 'registerAgent': {
+        const { name, bio, specialization, serviceTitle, serviceDescription, price, currency, walletAddress, signature } = params || {};
+
+        // Validate required fields
+        const missing = [];
+        if (!name) missing.push('name');
+        if (!bio) missing.push('bio');
+        if (!specialization) missing.push('specialization');
+        if (!serviceTitle) missing.push('serviceTitle');
+        if (!serviceDescription) missing.push('serviceDescription');
+        if (price == null) missing.push('price');
+        if (!currency) missing.push('currency');
+        if (!walletAddress) missing.push('walletAddress');
+
+        if (missing.length > 0) {
+          return res.json({ jsonrpc: '2.0', id, error: { code: -32602, message: `Missing required fields: ${missing.join(', ')}` } });
+        }
+
+        // Validate currency
+        if (!['SHIB', 'USDC'].includes(currency.toUpperCase())) {
+          return res.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'Currency must be SHIB or USDC' } });
+        }
+
+        // Validate price
+        if (typeof price !== 'number' || price <= 0) {
+          return res.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'Price must be a positive number' } });
+        }
+
+        // Validate wallet address format
+        if (!/^0x[a-fA-F0-9]{40}$/.test(walletAddress)) {
+          return res.json({ jsonrpc: '2.0', id, error: { code: -32602, message: 'Invalid wallet address format' } });
+        }
+
+        // Check for duplicate wallet address
+        const existingAgent = Object.values(agentsDB).find(a => a.walletAddress?.toLowerCase() === walletAddress.toLowerCase());
+        if (existingAgent) {
+          return res.json({ jsonrpc: '2.0', id, error: { code: -32001, message: 'Wallet address already registered', data: { profileId: existingAgent.id } } });
+        }
+
+        // Create agent profile
+        const profileId = 'agent-' + crypto.randomBytes(8).toString('hex');
+        const authToken = jwt.sign({ profileId, walletAddress }, JWT_SECRET, { expiresIn: '30d' });
+
+        const agent = {
+          id: profileId,
+          name,
+          bio,
+          specialization,
+          walletAddress: walletAddress.toLowerCase(),
+          rating: 0,
+          reviewCount: 0,
+          profileImage: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`,
+          isVerified: !!signature,
+          totalEarnings: 0,
+          completedTasks: 0,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+
+        agentsDB[profileId] = agent;
+
+        // Save to persistent storage
+        const allPersisted = loadAgentsDB();
+        allPersisted[profileId] = agent;
+        saveAgentsDB(allPersisted);
+
+        // Create first service
+        const serviceId = 'svc-' + crypto.randomBytes(8).toString('hex');
+        const service = new ServiceDefinition({
+          id: serviceId,
+          providerId: profileId,
+          name: serviceTitle,
+          description: serviceDescription,
+          category: specialization,
+          basePrice: price,
+          token: currency.toUpperCase()
+        });
+
+        marketplace.registerService(service);
+
+        console.log(`✅ New agent registered: ${name} (${profileId}) wallet: ${walletAddress}`);
+
+        return res.json({
+          jsonrpc: '2.0',
+          id,
+          result: {
+            success: true,
+            profileId,
+            authToken,
+            serviceId,
+            message: `Welcome to the A2A Marketplace, ${name}! Your profile is live.`,
+            profileUrl: `https://a2a.ex8.ca/agents/${profileId}`
+          }
+        });
+      }
+
+      default:
+        return res.json({ jsonrpc: '2.0', id, error: { code: -32601, message: `Method not found: ${method}` } });
+    }
+  } catch (error) {
+    console.error('JSON-RPC error:', error);
+    return res.json({ jsonrpc: '2.0', id, error: { code: -32000, message: error.message } });
+  }
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
@@ -1388,6 +1524,9 @@ app.listen(PORT, () => {
   console.log('  POST   /tasks/:id/negotiations/:negId/offers - Submit offer');
   console.log('  GET    /dashboard/stats           - Dashboard stats');
   console.log('  POST   /api/ws/token              - Get WS token');
+  console.log('');
+  console.log('JSON-RPC (A2A Protocol):');
+  console.log('  POST   /a2a/jsonrpc               - registerAgent');
   console.log('');
 });
 
