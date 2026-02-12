@@ -232,4 +232,17 @@ if (require.main === module) {
 }
 
 // Export for use as module
-module.exports = { ShibPaymentAgent, loadConfig };
+const { EscrowSystem } = require('./escrow.js');
+const { PaymentNegotiationSystem } = require('./payment-negotiation.js');
+const { MarketplaceAdapter, ServiceDefinition, PurchaseOrder } = require('./marketplace-adapter.js');
+
+module.exports = { 
+  ShibPaymentAgent, 
+  loadConfig,
+  // Marketplace support
+  MarketplaceAdapter,
+  ServiceDefinition,
+  PurchaseOrder,
+  EscrowSystem,
+  PaymentNegotiationSystem
+};
