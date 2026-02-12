@@ -8,6 +8,8 @@
  * - Exponential backoff for failed deliveries
  * - Webhook history and logs
  * - Event filtering by type
+ * - Queue persistence and durability
+ * - Rehydration from disk on startup
  */
 
 const crypto = require('crypto');
@@ -18,12 +20,16 @@ const http = require('http');
 const { EventEmitter } = require('events');
 
 class WebhookManager extends EventEmitter {
-  constructor(storePath = './webhooks-state.json', logsPath = './webhooks-logs.json') {
+  constructor(storePath = './webhooks-state.json', logsPath = './webhooks-logs.json', queuePath = './webhooks-queue.json') {
     super();
     this.storePath = storePath;
     this.logsPath = logsPath;
+    this.queuePath = queuePath;
     this.webhooks = this.loadState();
     this.logs = this.loadLogs();
+    
+    // Queue durability: load persisted queue from disk
+    this.deliveryQueue = this.loadQueue();
     
     // Configuration
     this.config = {
@@ -32,15 +38,21 @@ class WebhookManager extends EventEmitter {
       maxDelayMs: 3600000,            // 1 hour
       backoffMultiplier: 2,
       requestTimeoutMs: 10000,
-      maxLogEntries: 10000
+      maxLogEntries: 10000,
+      queueCheckpointIntervalMs: 5000  // Checkpoint queue every 5 seconds
     };
 
-    // In-memory queue for pending deliveries
-    this.deliveryQueue = [];
+    // Queue processor state
     this.processingQueue = false;
+    this.queueProcessorHandle = null;
+    this.checkpointHandle = null;
+    this.queueProcessingPromise = null;
 
-    // Start queue processor
+    // Note: queueProcessingComplete event is emitted via super.emit() in processDeliveryQueue()
+
+    // Start queue processor and checkpointing
     this.startQueueProcessor();
+    this.startQueueCheckpointing();
   }
 
   /**
@@ -73,6 +85,39 @@ class WebhookManager extends EventEmitter {
       }
     }
     return [];
+  }
+
+  /**
+   * Load delivery queue from disk (queue durability)
+   * Rehydrates in-flight deliveries that survived a process restart
+   */
+  loadQueue() {
+    if (fs.existsSync(this.queuePath)) {
+      try {
+        const data = fs.readFileSync(this.queuePath, 'utf8');
+        const queue = JSON.parse(data);
+        if (Array.isArray(queue) && queue.length > 0) {
+          console.log(`Rehydrating ${queue.length} pending deliveries from queue`);
+        }
+        return queue;
+      } catch (error) {
+        console.error('Error loading delivery queue:', error);
+        return [];
+      }
+    }
+    return [];
+  }
+
+  /**
+   * Save delivery queue to disk (checkpointing)
+   * Persists pending deliveries so they survive process restarts
+   */
+  saveQueue() {
+    try {
+      fs.writeFileSync(this.queuePath, JSON.stringify(this.deliveryQueue, null, 2));
+    } catch (error) {
+      console.error('Error saving delivery queue:', error);
+    }
   }
 
   /**
@@ -304,6 +349,12 @@ class WebhookManager extends EventEmitter {
       });
     }
 
+    // Checkpoint queue to disk after adding new deliveries
+    // This ensures queue survives process restart
+    if (matchingWebhooks.length > 0) {
+      this.saveQueue();
+    }
+
     // Return immediately (processing happens asynchronously)
     return {
       eventId,
@@ -315,15 +366,39 @@ class WebhookManager extends EventEmitter {
 
   /**
    * Start queue processor
+   * Processes delivery queue at regular intervals
+   * Can be mocked in tests for deterministic behavior
    */
   startQueueProcessor() {
-    setInterval(() => {
+    if (this.queueProcessorHandle) {
+      clearInterval(this.queueProcessorHandle);
+    }
+    
+    this.queueProcessorHandle = setInterval(() => {
       this.processDeliveryQueue();
     }, 1000); // Check queue every 1 second
   }
 
   /**
+   * Start queue checkpointing
+   * Periodically saves queue to disk for durability
+   */
+  startQueueCheckpointing() {
+    if (this.checkpointHandle) {
+      clearInterval(this.checkpointHandle);
+    }
+
+    this.checkpointHandle = setInterval(() => {
+      if (this.deliveryQueue.length > 0) {
+        this.saveQueue();
+      }
+    }, this.config.queueCheckpointIntervalMs);
+  }
+
+  /**
    * Process delivery queue
+   * Handles retries with exponential backoff
+   * Persists queue state after processing
    */
   async processDeliveryQueue() {
     if (this.processingQueue || this.deliveryQueue.length === 0) {
@@ -331,36 +406,74 @@ class WebhookManager extends EventEmitter {
     }
 
     this.processingQueue = true;
+    this.queueProcessingPromise = (async () => {
+      try {
+        // Process deliveries that are ready to be sent
+        const now = Date.now();
+        const toProcess = [];
+        const remaining = [];
 
-    try {
-      // Process deliveries that are ready to be sent
-      const now = Date.now();
-      const toProcess = [];
-      const remaining = [];
-
-      for (const delivery of this.deliveryQueue) {
-        if (!delivery.nextRetryAt || delivery.nextRetryAt <= now) {
-          toProcess.push(delivery);
-        } else {
-          remaining.push(delivery);
+        for (const delivery of this.deliveryQueue) {
+          if (!delivery.nextRetryAt || delivery.nextRetryAt <= now) {
+            toProcess.push(delivery);
+          } else {
+            remaining.push(delivery);
+          }
         }
-      }
 
-      this.deliveryQueue = remaining;
+        this.deliveryQueue = remaining;
 
-      // Process in parallel (with concurrency limit)
-      const concurrency = 5;
-      for (let i = 0; i < toProcess.length; i += concurrency) {
-        const batch = toProcess.slice(i, i + concurrency);
-        await Promise.all(batch.map(d => this.deliverWebhook(d)));
+        // Process in parallel (with concurrency limit)
+        const concurrency = 5;
+        for (let i = 0; i < toProcess.length; i += concurrency) {
+          const batch = toProcess.slice(i, i + concurrency);
+          await Promise.all(batch.map(d => this.deliverWebhook(d)));
+        }
+
+        // Checkpoint queue after processing batch
+        this.saveQueue();
+
+        // Emit completion event for test harnesses (via EventEmitter)
+        super.emit('queueProcessingComplete');
+      } finally {
+        this.processingQueue = false;
       }
-    } finally {
-      this.processingQueue = false;
+    })();
+
+    return this.queueProcessingPromise;
+  }
+
+  /**
+   * Wait for queue to finish processing all pending deliveries
+   * Useful for tests that need to verify delivery completion
+   */
+  async waitForQueueCompletion(timeoutMs = 10000) {
+    const start = Date.now();
+    while (this.processingQueue || this.deliveryQueue.length > 0) {
+      if (Date.now() - start > timeoutMs) {
+        throw new Error(`Queue processing timeout after ${timeoutMs}ms`);
+      }
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+
+  /**
+   * Stop queue processor (for cleanup)
+   */
+  stopQueueProcessor() {
+    if (this.queueProcessorHandle) {
+      clearInterval(this.queueProcessorHandle);
+      this.queueProcessorHandle = null;
+    }
+    if (this.checkpointHandle) {
+      clearInterval(this.checkpointHandle);
+      this.checkpointHandle = null;
     }
   }
 
   /**
    * Deliver a webhook with retry logic
+   * Handles both successful delivery and failures with exponential backoff
    */
   async deliverWebhook(delivery) {
     const { webhookId, event, attempt } = delivery;
@@ -393,7 +506,7 @@ class WebhookManager extends EventEmitter {
         body: JSON.stringify(event)
       });
 
-      // Success
+      // Success - delivery complete, item removed from queue (implicitly by not re-queuing)
       webhook.lastTriggeredAt = Date.now();
       webhook.successCount++;
       this.saveState();
@@ -405,6 +518,9 @@ class WebhookManager extends EventEmitter {
         attempt,
         statusCode: 200
       });
+
+      // Emit event for test synchronization (via EventEmitter, not webhook event)
+      super.emit('webhookDelivered', { webhookId, eventId: event.id });
 
     } catch (error) {
       // Check if we should retry
@@ -425,7 +541,9 @@ class WebhookManager extends EventEmitter {
           status: 'retry_scheduled'
         };
 
+        // Add back to queue and checkpoint
         this.deliveryQueue.push(delivery2);
+        this.saveQueue();
 
         webhook.failureCount++;
         webhook.retryCount++;
@@ -442,7 +560,7 @@ class WebhookManager extends EventEmitter {
         });
 
       } else {
-        // Max retries exceeded
+        // Max retries exceeded - delivery dropped
         webhook.failureCount++;
         this.saveState();
 
@@ -453,6 +571,9 @@ class WebhookManager extends EventEmitter {
           attempt,
           error: error.message
         });
+
+        // Emit event for test synchronization (via EventEmitter, not webhook event)
+        super.emit('webhookDeliveryFailed', { webhookId, eventId: event.id });
       }
     }
   }
@@ -538,7 +659,7 @@ class WebhookManager extends EventEmitter {
     let results = this.logs;
 
     if (webhookId) {
-      results = results.filter(l => l.webhookId === webhookId);
+      results = results.filter(l => l.data && l.data.webhookId === webhookId);
     }
 
     return results.slice(-limit);
@@ -690,6 +811,27 @@ class WebhookManager extends EventEmitter {
         message: 'Webhook test failed: ' + error.message
       };
     }
+  }
+
+  /**
+   * Cleanup and shutdown
+   * - Stops queue processor
+   * - Saves final queue state
+   * - Cleans up timers
+   */
+  async shutdown() {
+    this.stopQueueProcessor();
+    
+    // Wait for any in-flight processing to complete
+    if (this.queueProcessingPromise) {
+      await this.queueProcessingPromise;
+    }
+
+    // Final checkpoint of queue
+    this.saveQueue();
+    
+    // Remove all listeners for cleanup
+    this.removeAllListeners();
   }
 }
 
